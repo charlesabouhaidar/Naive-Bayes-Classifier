@@ -11,10 +11,24 @@ import sys
 # For COMP 472 – Summer 2020
 # --------------------------------------------------------
 
-data_set = pd.read_csv("hns_2018_2019.csv")
-df = pd.DataFrame(data_set, columns=['Title', 'Created At'])
+data_set = pd.read_csv("hns_2018_2019.csv") # open csv file
+data_frame = pd.DataFrame(data_set) # transform csv file to dataframe
+df_2018 = data_frame.loc[data_frame['Created At'].str.contains("2018")] # extract data where 'Created At' = 2018
+testing_data_set_2019 = data_frame.loc[data_frame['Created At'].str.contains("2019")] # testing data set (2019)
+lower_case_df = df_2018['Title'].str.lower().str.split() # change all vocab to lower case and split
+vocab = []
+# special_characters = [':', ',', ';', '!', '.', '?', '/', ']', '[', '+', '-', '{', '}', '-', '_', '`', '~', '@', '#', '$', '%', '^', '&', '*', '(', ')']
+for row in lower_case_df:
+    for word in row:
+        vocab.append(word)
 
-# need to filter the df to the rows which have 2018 as the first 4 digits of the column 'Created At'
+
+print(vocab)
+"""
+To filter all words in vocab
+vocab = set()
+df['Title'].str.lower().str.split().apply(vocab.update)
+"""
 
 # create vocabulary list which has all the words contained in Title
 vocabulary = []
